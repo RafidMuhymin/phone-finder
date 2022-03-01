@@ -61,7 +61,7 @@ const search = async (event, query, stripExcessData) => {
               class="btn btn-primary p-3 fs-5 d-block mx-auto my-3"
               onclick="search(event, '${query}')"
             >
-              View All Results
+              View All Phones
             </button>`
           : ""
       }
