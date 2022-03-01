@@ -19,27 +19,33 @@ const search = async (event, query) => {
   const { status, data } = await (await fetch(SearchAPIURL + query)).json();
 
   resultContainer.innerHTML = status
-    ? `<div class="search-results row row-cols-md-2 row-cols-lg-3 justify-content-center">
+    ? `<div
+        class="search-results row row-cols-md-2 row-cols-lg-3 justify-content-center"
+      >
         ${data
           .map(
-            ({ brand, phone_name, slug, image }) => `
-              <div
+            ({ brand, phone_name, slug, image }) =>
+              `<div
                 class="search-result d-flex gap-3 flex-column align-items-center"
-                onclick="showDetails('${slug}')"
               >
                 <img src="${image}" alt="${phone_name}" />
                 <h3 class="m-0">${phone_name}</h3>
-                <p>Brand - ${brand}</p>
-              </div>
-            `
+                <p class="m-0">Brand - ${brand}</p>
+                <button
+                  class="mb-4 btn btn-primary"
+                  onclick="viewDetails('${slug}')"
+                >
+                  View Details
+                </button>
+              </div>`
           )
           .join("")}
       </div>`
     : `<h2 class="text-center">No phone found</h2>`;
 };
 
-// phone details click event handler
-const showDetails = async (url) => {
+// viewDetails button click event handler
+const viewDetails = async (url) => {
   const { data } = await (await fetch(DetailsAPIURL + url)).json();
 
   const { name, slug, brand, image, releaseDate, mainFeatures } = data;
