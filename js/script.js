@@ -16,6 +16,16 @@ const TableCell = (key, value) =>
 const search = async (event, query, stripExcessData) => {
   event.preventDefault();
 
+  resultContainer.innerHTML =
+    // prettier-ignore
+    `<div
+      class="m-4 spinner-border text-primary text-center"
+      style="width: 10rem; height: 10rem;"
+      role="status"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>`;
+
   const { status, data } = await (await fetch(SearchAPIURL + query)).json();
 
   const requiredData = stripExcessData ? data.slice(0, 20) : data;
