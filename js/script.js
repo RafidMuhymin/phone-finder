@@ -5,6 +5,13 @@ const DetailsAPIURL = "https://openapi.programming-hero.com/api/phone/";
 // Result container
 const resultContainer = document.querySelector(".result-container");
 
+// TableCell function (component)
+const TableCell = (key, value) =>
+  `<tr>
+    <td>${key}</td>
+    <td>${value}</td>
+  </tr>`;
+
 // form submit event handler
 const search = async (event, query) => {
   event.preventDefault();
@@ -39,41 +46,18 @@ const showDetails = async (url) => {
 
   const { chipSet, memory, storage, sensors, displaySize } = mainFeatures;
 
-  resultContainer.innerHTML = `
-    <div class="phone-details m-4 gap-3 d-flex flex-column align-items-center">
+  resultContainer.innerHTML =
+    // prettier-ignore
+    `<div class="phone-details m-4 gap-3 d-flex flex-column align-items-center">
       <img src="${image}" alt="${name}" />
       <h2>${name}</h2>
       <table>
-        <tr>
-          <td>Brand</td>
-          <td>${brand}</td>
-        </tr>
-        <tr>
-          <td>Release Date</td>
-          <td>${releaseDate || "Not released yet"}</td>
-        </tr>
-
-        <tr>
-          <td>Chipset</td>
-          <td>${chipSet}</td>
-        </tr>
-        <tr>
-          <td>Memory</td>
-          <td>${memory}</td>
-        </tr>
-        <tr>
-          <td>Storage</td>
-          <td>${storage}</td>
-        </tr>
-        <tr>
-          <td>Sensors</td>
-          <td>${sensors.join(", ")}</td>
-        </tr>
-        <tr>
-          <td>Display Size</td>
-          <td>${displaySize}</td>
-        </tr>
+        ${TableCell("Brand", brand)}
+        ${TableCell("Release Date", releaseDate || "Not released yet")}
+        ${TableCell("Chipset", chipSet)} ${TableCell("Memory", memory)}
+        ${TableCell("Storage", storage)}
+        ${TableCell("Sensors", sensors.join(", "))}
+        ${TableCell("Display Size", displaySize)}
       </table>
-    </div>
-  `;
+    </div>`;
 };
