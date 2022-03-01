@@ -78,9 +78,12 @@ const viewDetails = async (url) => {
 
   const { chipSet, memory, storage, sensors, displaySize } = mainFeatures;
 
-  resultContainer.innerHTML =
+  document.querySelector(".phone-details")?.remove();
+
+  resultContainer.insertAdjacentHTML(
+    "afterbegin",
     // prettier-ignore
-    `<div class="phone-details m-4 gap-3 d-flex flex-column align-items-center">
+    `<div class="phone-details m-5 gap-3 d-flex flex-column align-items-center">
       <img src="${image}" alt="${name}" />
       <h2>${name}</h2>
       <table>
@@ -91,5 +94,8 @@ const viewDetails = async (url) => {
         ${TableCell("Sensors", sensors.join(", "))}
         ${TableCell("Display Size", displaySize)}
       </table>
-    </div>`;
+    </div>`
+  );
+
+  resultContainer.scrollIntoView({ behavior: "smooth" });
 };
