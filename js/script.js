@@ -13,16 +13,20 @@ const TableCell = (key, value) =>
   </tr>`;
 
 // form submit event handler
-const search = async (event, query) => {
+const search = async (event, query, stripExcessData) => {
   event.preventDefault();
 
   const { status, data } = await (await fetch(SearchAPIURL + query)).json();
+
+  const requiredData = stripExcessData ? data.slice(0, 20) : data;
+
+  const excessData = stripExcessData && data.slice(20);
 
   resultContainer.innerHTML = status
     ? `<div
         class="search-results row row-cols-md-2 row-cols-lg-3 justify-content-center"
       >
-        ${data
+        ${requiredData
           .map(
             ({ brand, phone_name, slug, image }) =>
               `<div
@@ -40,7 +44,19 @@ const search = async (event, query) => {
               </div>`
           )
           .join("")}
-      </div>`
+      </div>
+      ${
+        excessData?.length > 0
+          ? `<button
+              class="btn btn-primary p-3 fs-5 d-block mx-auto my-3"
+              onclick="search(event, '${query}')"
+            >
+              View All Results
+            </button>`
+          : ""
+      }
+      
+      `
     : `<h2 class="text-center">No phone found</h2>`;
 };
 
