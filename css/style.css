@@ -7,3 +7,23 @@
 form input {
   max-width: 500px;
 }
+
+/* Search Results Styles */
+.search-result {
+  cursor: pointer;
+  color: #0d6efd;
+}
+
+.search-result:hover {
+  text-decoration: underline;
+}
+
+/* Phone Details Styles */
+.phone-details table td {
+  padding: 0.5rem;
+}
+
+.phone-details table,
+.phone-details td {
+  border: 1px solid #aaa;
+}
