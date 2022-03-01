@@ -8,7 +8,7 @@ const resultContainer = document.querySelector(".result-container");
 // TableCell function (component)
 const TableCell = (key, value) =>
   `<tr>
-    <td>${key}</td>
+    <td>${key.toUpperCase()}</td>
     <td>${value}</td>
   </tr>`;
 
@@ -74,9 +74,19 @@ const search = async (event, query, stripExcessData) => {
 const viewDetails = async (url) => {
   const { data } = await (await fetch(DetailsAPIURL + url)).json();
 
-  const { name, brand, image, releaseDate, mainFeatures } = data;
+  const { name, brand, image, releaseDate, mainFeatures, others = {} } = data;
 
-  const { chipSet, memory, storage, sensors, displaySize } = mainFeatures;
+  const { sensors = [] } = mainFeatures;
+
+  delete mainFeatures.sensors;
+
+  const entries = Object.entries({
+    brand,
+    "Release Date": releaseDate || "N/A",
+    ...mainFeatures,
+    sensors: sensors?.join(", "),
+    ...others,
+  });
 
   document.querySelector(".phone-details")?.remove();
 
@@ -87,12 +97,7 @@ const viewDetails = async (url) => {
       <img src="${image}" alt="${name}" />
       <h2>${name}</h2>
       <table>
-        ${TableCell("Brand", brand)}
-        ${TableCell("Release Date", releaseDate || "Release date not found")}
-        ${TableCell("Chipset", chipSet)} ${TableCell("Memory", memory)}
-        ${TableCell("Storage", storage)}
-        ${TableCell("Sensors", sensors.join(", "))}
-        ${TableCell("Display Size", displaySize)}
+        ${entries.map(([key, value]) => TableCell(key, value)).join("")}
       </table>
     </div>`
   );
