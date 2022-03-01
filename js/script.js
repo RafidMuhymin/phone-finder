@@ -64,7 +64,7 @@ const search = async (event, query, stripExcessData) => {
 const viewDetails = async (url) => {
   const { data } = await (await fetch(DetailsAPIURL + url)).json();
 
-  const { name, slug, brand, image, releaseDate, mainFeatures } = data;
+  const { name, brand, image, releaseDate, mainFeatures } = data;
 
   const { chipSet, memory, storage, sensors, displaySize } = mainFeatures;
 
@@ -75,7 +75,7 @@ const viewDetails = async (url) => {
       <h2>${name}</h2>
       <table>
         ${TableCell("Brand", brand)}
-        ${TableCell("Release Date", releaseDate || "Not released yet")}
+        ${TableCell("Release Date", releaseDate || "Release date not found")}
         ${TableCell("Chipset", chipSet)} ${TableCell("Memory", memory)}
         ${TableCell("Storage", storage)}
         ${TableCell("Sensors", sensors.join(", "))}
