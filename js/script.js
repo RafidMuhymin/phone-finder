@@ -35,7 +35,7 @@ const search = async (event, query) => {
           )
           .join("")}
       </div>`
-    : `<h2 class="text-center">No results found</h2>`;
+    : `<h2 class="text-center">No phone found</h2>`;
 };
 
 // phone details click event handler
