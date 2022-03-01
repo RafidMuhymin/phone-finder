@@ -34,12 +34,12 @@ const search = async (event, query, stripExcessData) => {
 
   resultContainer.innerHTML = status
     ? `<div
-        class="search-results row row-cols-md-2 row-cols-lg-3 justify-content-center"
-      >
-        ${requiredData
-          .map(
-            ({ brand, phone_name, slug, image }) =>
-              `<div
+          class="search-results row row-cols-md-2 row-cols-lg-3 justify-content-center"
+        >
+          ${requiredData
+            .map(
+              ({ brand, phone_name, slug, image }) =>
+                `<div
                 class="search-result d-flex gap-3 flex-column align-items-center"
               >
                 <img src="${image}" alt="${phone_name}" />
@@ -52,21 +52,19 @@ const search = async (event, query, stripExcessData) => {
                   View Details
                 </button>
               </div>`
-          )
-          .join("")}
-      </div>
-      ${
-        excessData?.length > 0
-          ? `<button
-              class="btn btn-primary p-3 fs-5 d-block mx-auto my-3"
-              onclick="search(event, '${query}')"
-            >
-              View All Phones
-            </button>`
-          : ""
-      }
-      
-      `
+            )
+            .join("")}
+        </div>
+        ${
+          excessData?.length > 0
+            ? `<button
+                class="btn btn-primary p-3 fs-5 d-block mx-auto my-3"
+                onclick="search(event, '${query}')"
+              >
+                View All Phones
+              </button>`
+            : ""
+        } `
     : `<h2 class="text-center">No phone found</h2>`;
 };
 
@@ -92,8 +90,9 @@ const viewDetails = async (url) => {
 
   resultContainer.insertAdjacentHTML(
     "afterbegin",
-    // prettier-ignore
-    `<div class="phone-details m-5 gap-3 d-flex flex-column align-items-center">
+    `<div
+      class="phone-details m-5 gap-3 d-flex flex-column align-items-center"
+    >
       <img src="${image}" alt="${name}" />
       <h2>${name}</h2>
       <table>
